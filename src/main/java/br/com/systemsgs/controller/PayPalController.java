@@ -43,8 +43,9 @@ public class PayPalController {
 				}
 			}
 
-		} catch (PayPalRESTException e) {
-			e.printStackTrace();
+		} catch (PayPalRESTException exception) {
+			exception.printStackTrace();
+			System.out.println(exception.getMessage());
 		}
 		return "redirect:/";
 	}
@@ -54,6 +55,7 @@ public class PayPalController {
 		try {
 
 			Payment payment = payPalService.executePayment(paymentId, payerID);
+			System.out.println(payment.toJSON());
 
 			if (payment.getState().equals("approved")) {
 				return "sucess";
